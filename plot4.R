@@ -49,10 +49,10 @@ powData$Voltage <-as.numeric(powData$Voltage)
 # Explicitly launch a file graphics device
 png(file="plot4.png",bg="transparent")
 
-par(oma=c(0,1,0,1)) # add padding to outer margin
+par(oma=c(2,1,1,1)) # add padding to outer margin
 par(cex.lab=.8) # decrease label magnification
 par(cex.axis=.8) # decrease axis annotation magnification
-par(mar=c(3,4,1,1)) # adjust plot margins
+par(mar=c(2,4,2,2)) # adjust plot margins
 
 par(mfcol=c(2,2)) # plots arrayed in 2x2 grid, ordered by column
 
@@ -93,6 +93,7 @@ with(powData, plot(Date_time, Voltage,
                    ylab="Voltage"))
 # Now, plot and connect points as a line
 with(powData, lines(Date_time,Voltage))
+mtext(side=1, "datetime", line=2, cex=.8, col="black")
 
 ## BOTTOMRIGHT - generate plot: power transmitted but not "used"
 
@@ -104,6 +105,7 @@ with(powData, plot(Date_time, Global_reactive_power,
 
 # Now, plot and connect points as a line
 with(powData, lines(Date_time,Global_reactive_power))
+mtext(side=1, "datetime", line=2, cex=.8, col="black")
 
 # Explicitly close graphics device
 dev.off()
