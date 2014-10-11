@@ -40,6 +40,7 @@ powData$Global_reactive_power <- as.numeric(powData$Global_reactive_power)
 SubMetering <- lapply(powData[,8:10],as.numeric)
 SubMetering<-data.frame(SubMetering)
 powData[,8:10]<-SubMetering
+rm(SubMetering) #no longer needed
 
 # Convert Voltage to numeric
 powData$Voltage <-as.numeric(powData$Voltage)
@@ -49,10 +50,10 @@ powData$Voltage <-as.numeric(powData$Voltage)
 # Explicitly launch a file graphics device
 png(file="plot4.png",bg="transparent")
 
-par(oma=c(2,1,1,1)) # add padding to outer margin
+par(oma=c(2,1,2,1)) # add padding to outer margin
 par(cex.lab=.8) # decrease label magnification
 par(cex.axis=.8) # decrease axis annotation magnification
-par(mar=c(2,4,2,2)) # adjust plot margins
+par(mar=c(4,4.1,2.1,2)) # adjust plot margins
 
 par(mfcol=c(2,2)) # plots arrayed in 2x2 grid, ordered by column
 
@@ -80,7 +81,7 @@ with(powData,lines(Date_time,Sub_metering_3,col="blue",lwd=1))
 # Now, draw the legend
 legend("topright",
        legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),#names
-       cex=.7, #reduce magnification
+       cex=.6, #reduce magnification
        bty="n", #don't draw box around legend
        col=c("black","red","blue"), #symbol colors
        lwd=1, #symbol weight
@@ -89,11 +90,10 @@ legend("topright",
 ## TOPRIGHT - generate plot: what is total voltage over time
 with(powData, plot(Date_time, Voltage,
                    type="n", 
-                   xlab="",
+                   xlab="datetime",
                    ylab="Voltage"))
 # Now, plot and connect points as a line
 with(powData, lines(Date_time,Voltage))
-mtext(side=1, "datetime", line=2, cex=.8, col="black")
 
 ## BOTTOMRIGHT - generate plot: power transmitted but not "used"
 
@@ -105,7 +105,7 @@ with(powData, plot(Date_time, Global_reactive_power,
 
 # Now, plot and connect points as a line
 with(powData, lines(Date_time,Global_reactive_power))
-mtext(side=1, "datetime", line=2, cex=.8, col="black")
+
 
 # Explicitly close graphics device
 dev.off()
